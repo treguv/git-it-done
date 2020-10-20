@@ -4,9 +4,13 @@ function getUserRepos(user){
     console.log("Call made");
     //Make a request to the url
     fetch(apiUrl).then(function(response){
-        response.json().then(function(data){
-        displayRepos(data, user);
-        })
+        if(response.ok){// ok is true if all good false if error
+            response.json().then(function(data){
+                displayRepos(data, user);
+            });
+        }else {
+            alert("Error " + response.statusText); //e.getMessage or println(e);
+        }
     })
 }
 function formSubmitHandler(event) {
@@ -20,8 +24,11 @@ function formSubmitHandler(event) {
 }
 
 function displayRepos(repos, searchTerm) { 
-    console.log(repos);
-    console.log(searchTerm);
+    //if no repos
+    if(repos.length === 0){
+        repoContainerEl.textContent = "No Repositories Found";
+        return;
+    }
     //ckear out old and display new
     repoContainerEl.textContent = "";
     repoSearchTerm.textContent = searchTerm;
