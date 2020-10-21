@@ -11,6 +11,9 @@ function getUserRepos(user){
         }else {
             alert("Error " + response.statusText); //e.getMessage or println(e);
         }
+    }).catch(function(error){
+        alert("Unable to connect to GitHub"); // this is a try catch block
+        // Fetch --> then --> catch
     })
 }
 function formSubmitHandler(event) {
